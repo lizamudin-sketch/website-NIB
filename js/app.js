@@ -496,6 +496,8 @@ function renderDashboard() {
                 <div class="flex-grow-1">
                     <h6 class="mb-1"><i class="bi bi-person-fill"></i> ${d.nama || '-'}</h6>
                     <div class="small text-muted"><i class="bi bi-shop"></i> ${d.jenisUsaha || '-'}</div>
+                    ${d.barangDijual ? `<div class="small text-muted"><i class="bi bi-box-seam"></i> ${d.barangDijual}</div>` : ''}
+    
                     <div class="small text-muted"><i class="bi bi-phone"></i> ${d.hp || '-'}</div>
                     <div class="small text-muted mt-1"><i class="bi bi-calendar3"></i> ${App.formatDate(d.createdAt)}</div>
                 </div>
