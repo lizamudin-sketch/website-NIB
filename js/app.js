@@ -402,25 +402,24 @@ function renderSubForm(jenis, data) {
     if (!wrap) return;
 
     const forms = {
-        'Warung Sembako': `
-            <input class="form-control mb-2" name="namaWarung" placeholder="Nama Warung" value="${data.namaWarung || ''}">
-            <input type="date" class="form-control mb-2" name="mulaiUsahaWarung" value="${data.mulaiUsahaWarung || ''}">
-            <input type="number" class="form-control mb-2" name="modalWarung" placeholder="Modal" value="${data.modalWarung || ''}">
-            <input type="number" class="form-control mb-2" name="omzetWarung" placeholder="Omzet" value="${data.omzetWarung || ''}">
-            <select class="form-select mb-2" name="statusTempatWarung">
-                <option value="">Status Tempat</option>
-                <option ${data.statusTempatWarung==='Milik Sendiri'?'selected':''}>Milik Sendiri</option>
-                <option ${data.statusTempatWarung==='Sewa'?'selected':''}>Sewa</option>
-                <option ${data.statusTempatWarung==='Menumpang'?'selected':''}>Menumpang</option>
-            </select>
-            <input type="number" class="form-control mb-3" name="luasBangunanWarung" placeholder="Luas Bangunan (m²)" value="${data.luasBangunanWarung || ''}">
-            <label class="form-label fw-semibold">Fasilitas:</label>
-            ${['LPG','Pulsa','Air Galon','Frozen Food','Rokok'].map(i => `
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="fasilitas_${i}" id="f_${i}" ${data['fasilitas_'+i]?'checked':''}>
-                    <label class="form-check-label" for="f_${i}">Menjual ${i}</label>
-                </div>`).join('')}`,
-
+       'Warung Sembako': `
+    <input class="form-control mb-2" name="namaWarung" placeholder="Nama Warung" value="${data.namaWarung || ''}">
+    <input type="date" class="form-control mb-2" name="mulaiUsahaWarung" value="${data.mulaiUsahaWarung || ''}">
+    <input type="number" class="form-control mb-2" name="modalWarung" placeholder="Modal" value="${data.modalWarung || ''}">
+    <input type="number" class="form-control mb-2" name="omzetWarung" placeholder="Omzet" value="${data.omzetWarung || ''}">
+    <select class="form-select mb-2" name="statusTempatWarung">
+        <option value="">Status Tempat</option>
+        <option ${data.statusTempatWarung==='Milik Sendiri'?'selected':''}>Milik Sendiri</option>
+        <option ${data.statusTempatWarung==='Sewa'?'selected':''}>Sewa</option>
+        <option ${data.statusTempatWarung==='Menumpang'?'selected':''}>Menumpang</option>
+    </select>
+    <input type="number" class="form-control mb-3" name="luasBangunanWarung" placeholder="Luas Bangunan (m²)" value="${data.luasBangunanWarung || ''}">
+    <div class="mb-3">
+        <label class="form-label">Barang yang Dijual</label>
+        <textarea name="barangDijual" class="form-control" rows="3" 
+            placeholder="Sebutkan barang yang dijual (contoh: Snack, Sayur, Minyak, Terigu, dll...)">${data.barangDijual || ''}</textarea>
+        <small class="text-muted">Masukkan jenis barang yang dijual secara lengkap</small>
+    </div>`,
         'Pertanian': `
             <input class="form-control mb-2" name="komoditas" placeholder="Komoditas" value="${data.komoditas || ''}">
             <input type="number" class="form-control mb-2" name="luasLahan" placeholder="Luas Lahan (m²)" value="${data.luasLahan || ''}">
