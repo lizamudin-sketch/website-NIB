@@ -1,0 +1,66 @@
+<div class="fade-in-up">
+    <div id="progressArea"></div>
+    <h2 class="section-title">Alamat Usaha</h2>
+
+    <div class="card-modern">
+        <div class="card-body-modern">
+            <form id="formAlamat" onsubmit="return false">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label">Alamat Lengkap *</label>
+                        <textarea class="form-control" name="alamat" rows="2" required></textarea>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">RT *</label>
+                        <input type="text" class="form-control" name="rt" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">RW *</label>
+                        <input type="text" class="form-control" name="rw" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Desa *</label>
+                        <input type="text" class="form-control" name="desa" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Kecamatan *</label>
+                        <input type="text" class="form-control" name="kecamatan" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Kabupaten *</label>
+                        <input type="text" class="form-control" name="kabupaten" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Provinsi *</label>
+                        <input type="text" class="form-control" name="provinsi" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Kode Pos *</label>
+                        <input type="text" class="form-control" name="kodePos" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Share Location WhatsApp</label>
+                        <textarea class="form-control" name="shareLocation" rows="2" placeholder="Tempel link Share Location WhatsApp di sini."></textarea>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Luas Bangunan (m²)</label>
+                        <input type="number" class="form-control" name="luasBangunan">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Luas Tempat Usaha (m²)</label>
+                        <input type="number" class="form-control" name="luasTempat">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Keterangan Lokasi</label>
+                        <input type="text" class="form-control" name="keteranganLokasi">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <button id="btnPrev" class="btn btn-outline-custom"><i class="bi bi-arrow-left"></i> Kembali</button>
+        <button id="btnNext" class="btn btn-primary-custom">Selanjutnya <i class="bi bi-arrow-right"></i></button>
+    </div>
+</div>

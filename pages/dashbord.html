@@ -1,0 +1,41 @@
+<div class="fade-in-up">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <h2 class="section-title mb-0">Dashboard Data Usaha</h2>
+        <div class="d-flex gap-2 flex-wrap">
+            <button id="btnExport" class="btn btn-sm btn-outline-custom"><i class="bi bi-download"></i> Export</button>
+            <button id="btnImport" class="btn btn-sm btn-outline-custom"><i class="bi bi-upload"></i> Import</button>
+            <button id="btnBackup" class="btn btn-sm btn-outline-custom"><i class="bi bi-cloud-arrow-down"></i> Backup</button>
+            <button id="btnRestore" class="btn btn-sm btn-outline-custom"><i class="bi bi-cloud-arrow-up"></i> Restore</button>
+            <button id="btnReset" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Reset</button>
+            <input type="file" id="fileImport" accept=".json" class="d-none">
+        </div>
+    </div>
+
+    <div class="card-modern mb-3">
+        <div class="card-body-modern">
+            <div class="row g-2">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Cari nama...">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <select id="filterJenis" class="form-select">
+                        <option value="">Semua Jenis Usaha</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="filterStatus" class="form-select">
+                        <option value="">Semua Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="process">Proses</option>
+                        <option value="done">Selesai</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dataList"></div>
+</div>
