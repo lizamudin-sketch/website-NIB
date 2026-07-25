@@ -40,11 +40,13 @@ const FormManager = (() => {
     const validateDataUsaha = () => {
         if (!currentData.namaUsaha) return { valid: false, field: 'namaUsaha', msg: 'Nama usaha wajib diisi' };
         if (!currentData.jenisUsaha) return { valid: false, field: 'jenisUsaha', msg: 'Pilih jenis usaha' };
+        
+        // Validasi khusus Warung Sembako
+        if (currentData.jenisUsaha === 'Warung Sembako' && !currentData.barangDijual?.trim()) {
+            return { valid: false, field: 'barangDijual', msg: 'Sebutkan barang yang dijual' };
+        }
+        
         return { valid: true };
-       // Tambahkan di dalam validateDataUsaha
-if (data.jenisUsaha === 'Warung Sembako' && !data.barangDijual?.trim()) {
-    return { valid: false, field: 'barangDijual', msg: 'Sebutkan barang yang dijual' };
-}
     };
 
     // Validasi Operasional
