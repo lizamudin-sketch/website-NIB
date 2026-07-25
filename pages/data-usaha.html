@@ -13,7 +13,7 @@
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Jenis Usaha *</label>
                     <div class="row g-2" id="jenisUsahaContainer">
-                        <!-- Akan di-generate oleh JavaScript -->
+                        <!-- Di-generate oleh JavaScript di app.js -->
                     </div>
                 </div>
 
@@ -27,36 +27,3 @@
         <button id="btnNext" class="btn btn-primary-custom">Selanjutnya <i class="bi bi-arrow-right"></i></button>
     </div>
 </div>
-
-<script>
-// Generate pilihan Jenis Usaha
-const jenisList = ['Warung Sembako','Pertanian','Hortikultura','Kehutanan','Peternakan','Industri','Perdagangan','Jasa','Makanan Minuman','Lainnya'];
-const container = document.getElementById('jenisUsahaContainer');
-container.innerHTML = jenisList.map(j => `
-    <div class="col-md-6 col-lg-4">
-        <label class="kategori-check">
-            <input class="form-check-input" type="radio" name="jenisUsaha" value="${j}" required>
-            <span>${j}</span>
-        </label>
-    </div>
-`).join('');
-
-// Event listener untuk pilihan jenis usaha
-document.querySelectorAll('[name="jenisUsaha"]').forEach(r => {
-    r.addEventListener('change', () => {
-        document.querySelectorAll('.kategori-check').forEach(c => c.classList.remove('selected'));
-        r.closest('.kategori-check').classList.add('selected');
-        renderSubForm(r.value, {});
-    });
-});
-
-document.getElementById('btnPrev').addEventListener('click', () => Router.go('data-diri'));
-document.getElementById('btnNext').addEventListener('click', () => {
-    const fd = new FormData(document.getElementById('formDataUsaha'));
-    const obj = Object.fromEntries(fd.entries());
-    FormManager.updateData(obj);
-    const v = FormManager.validateDataUsaha();
-    if (!v.valid) { App.toast(v.msg, 'danger'); return; }
-    Router.go('operasional');
-});
-</script>
