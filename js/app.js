@@ -162,67 +162,100 @@ const PageInit = {
         });
     },
 
-    'data-usaha': () => {
-        document.getElementById('progressArea').innerHTML = App.renderProgress(2);
-        const data = FormManager.getData();
+   'data-usaha': () => {
+    document.getElementById('progressArea').innerHTML = App.renderProgress(2);
+    const data = FormManager.getData();
 
-        // Restore
-        if (data.namaUsaha) document.getElementById('namaUsaha').value = data.namaUsaha;
-        if (data.jenisUsaha) {
-            const el = document.querySelector(`[name="jenisUsaha"][value="${data.jenisUsaha}"]`);
-            if (el) { el.checked = true; el.closest('.kategori-check').classList.add('selected'); }
+    // Restore nama usaha
+    if (data.namaUsaha) document.getElementById('namaUsaha').value = data.namaUsaha;
+
+    // Generate pilihan Jenis Usaha
+    const jenisList = ['Warung Sembako','Pertanian','Hortikultura','Kehutanan','Peternakan','Industri','Perdagangan','Jasa','Makanan Minuman','Lainnya'];
+    const container = document.getElementById('jenisUsahaContainer');
+    container.innerHTML = jenisList.map(j => `
+        <div class="col-md-6 col-lg-4">
+            <label class="kategori-check">
+                <input class="form-check-input" type="radio" name="jenisUsaha" value="${j}" required>
+                <span>${j}</span>
+            </label>
+        </div>
+    `).join('');
+
+    // Restore pilihan yang sudah ada
+    if (data.jenisUsaha) {
+        const el = document.querySelector(`[name="jenisUsaha"][value="${data.jenisUsaha}"]`);
+        if (el) {
+            el.checked = true;
+            el.closest('.kategori-check').classList.add('selected');
             renderSubForm(data.jenisUsaha, data);
         }
+    }
 
-        // Pilih kategori
-        document.querySelectorAll('[name="jenisUsaha"]').forEach(r => {
-            r.addEventListener('change', () => {
-                document.querySelectorAll('.kategori-check').forEach(c => c.classList.remove('selected'));
-                r.closest('.kategori-check').classList.add('selected');
-                renderSubForm(r.value, {});
-            });
+    // Event listener untuk pilihan jenis usaha
+    document.querySelectorAll('[name="jenisUsaha"]').forEach(r => {
+        r.addEventListener('change', () => {
+            document.querySelectorAll('.kategori-check').forEach(c => c.classList.remove('selected'));
+            r.closest('.kategori-check').classList.add('selected');
+            renderSubForm(r.value, {});
         });
+    });
 
-        document.getElementById('btnPrev').addEventListener('click', () => Router.go('data-diri'));
-        document.getElementById('btnNext').addEventListener('click', () => {
-            const fd = new FormData(document.getElementById('formDataUsaha'));
-            const obj = Object.fromEntries(fd.entries());
-            FormManager.updateData(obj);
-            const v = FormManager.validateDataUsaha();
-            if (!v.valid) { App.toast(v.msg, 'danger'); return; }
-            Router.go('operasional');
-        });
-    },
+    // Tombol navigasi
+    document.getElementById('btnPrev').addEventListener('click', () => Router.go('data-diri'));
+    document.getElementById('btnNext').addEventListener('click', () => {
+        const fd = new FormData(document.getElementById('formDataUsaha'));
+        const obj = Object.fromEntries(fd.entries());
+        FormManager.updateData(obj);
+        const v = FormManager.validateDataUsaha();
+        if (!v.valid) { App.toast(v.msg, 'danger'); return; }
+        Router.go('operasional');
+    });
+},
 
     'operasional': () => {
-        document.getElementById('progressArea').innerHTML = App.renderProgress(3);
-        const data = FormManager.getData();
+    document.getElementById('progressArea').innerHTML = App.renderProgress(3);
+    const data = FormManager.getData();
 
-        Object.keys(data).forEach(k => {
-            const el = document.querySelector(`[name="${k}"]`);
-            if (el) {
-                if (el.type === 'radio') {
-                    document.querySelectorAll(`[name="${k}"]`).forEach(r => r.checked = r.value === data[k]);
-                } else el.value = data[k];
-            }
-        });
+    // Restore data
+    Object.keys(data).forEach(k => {
+        const el = document.querySelector(`[name="${k}"]`);
+        if (el) {
+            if (el.type === 'radio') {
+                document.querySelectorAll(`[name="${k}"]`).forEach(r => r.checked = r.value === data[k]);
+            } else el.value = data[k];
+        }
+    });
 
-        const toggleKaryawan = () => {
-            const val = document.querySelector('[name="jumlahKaryawanStatus"]:checked')?.value;
-            document.getElementById('jumlahKaryawanWrap').style.display = val === 'ada' ? 'block' : 'none';
-        };
-        document.querySelectorAll('[name="jumlahKaryawanStatus"]').forEach(r => r.addEventListener('change', toggleKaryawan));
-        toggleKaryawan();
+    // Generate pilihan Status Tempat
+    const statusList = ['Milik Sendiri','Sewa','Menumpang'];
+    const container = document.getElementById('statusTempatContainer');
+    container.innerHTML = statusList.map(s => `
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="statusTempat" value="${s}" required>
+                <label class="form-check-label">${s}</label>
+            </div>
+        </div>
+    `).join('');
 
-        document.getElementById('btnPrev').addEventListener('click', () => Router.go('data-usaha'));
-        document.getElementById('btnNext').addEventListener('click', () => {
-            const fd = new FormData(document.getElementById('formOperasional'));
-            FormManager.updateData(Object.fromEntries(fd.entries()));
-            const v = FormManager.validateOperasional();
-            if (!v.valid) { App.toast(v.msg, 'danger'); return; }
-            Router.go('alamat-usaha');
-        });
-    },
+    // Toggle jumlah karyawan
+    const toggleKaryawan = () => {
+        const val = document.querySelector('[name="jumlahKaryawanStatus"]:checked')?.value;
+        document.getElementById('jumlahKaryawanWrap').style.display = val === 'ada' ? 'block' : 'none';
+    };
+    document.querySelectorAll('[name="jumlahKaryawanStatus"]').forEach(r => r.addEventListener('change', toggleKaryawan));
+    toggleKaryawan();
+
+    // Tombol navigasi
+    document.getElementById('btnPrev').addEventListener('click', () => Router.go('data-usaha'));
+    document.getElementById('btnNext').addEventListener('click', () => {
+        const fd = new FormData(document.getElementById('formOperasional'));
+        FormManager.updateData(Object.fromEntries(fd.entries()));
+        const v = FormManager.validateOperasional();
+        if (!v.valid) { App.toast(v.msg, 'danger'); return; }
+        Router.go('alamat-usaha');
+    });
+},
 
     'alamat-usaha': () => {
         document.getElementById('progressArea').innerHTML = App.renderProgress(4);
